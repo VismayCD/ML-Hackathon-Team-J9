@@ -1,7 +1,7 @@
 # PathSnap - GPS map-matching and route reconstruction (Team J-9)
 
 UE24CS352A Machine Learning hackathon, PES University.
-Team: Vismay, Vishnu, Ajay, Vishwas.
+Team: Vismay Chandra Dev, Vishnu S R, Vishnu Narayanan Ajay, Vishwas Hosamath.
 
 PathSnap matches noisy GPS points to a road network: for every GPS point it
 shortlists nearby road segments (arcs), scores them with a classifier, and uses
