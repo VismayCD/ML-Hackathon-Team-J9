@@ -35,11 +35,13 @@ an HMM with Viterbi decoding to produce a connected route. A FastAPI server
 | `scripts/tune_optuna.py` | Bayesian optimisation (Optuna TPE) + final model export |
 | `scripts/eval_hmm.py` | classifier-only vs classifier + HMM |
 | `scripts/make_maps.py` | Folium maps |
+| `scripts/plot_trip_static.py` | static figure of one trip (GPS, road network, reference route) |
 | `api/main.py` | FastAPI server (Laptop 1) |
 | `ui/app.py` | Streamlit UI (Laptop 2) |
 | `experiments/` | every CSV, log and plot used in the report |
-| `models/` | trained models + `config.json` |
-| `maps/` | Folium HTML maps |
+| `models/` | trained models + `config.json` (`final_model.joblib` = tuned HGB used by the API; `RandomForest.joblib` and `KNN.joblib` are git-ignored for size and rebuilt by `train_models.py`) |
+| `maps/` | Folium HTML maps (EDA map for train trip 00000005, result maps for student-test trips) |
+| `report/` | final technical report (`9_Report.pdf`) |
 
 ## Install
 
@@ -58,21 +60,32 @@ python scripts/train_models.py                      # experiments/model_comparis
 python scripts/tune_optuna.py                       # experiments/optuna_trials.csv, models/final_model.joblib
 python scripts/eval_hmm.py                          # experiments/hmm_comparison.csv
 python scripts/make_maps.py student_test 00000052   # maps/student_test_00000052.html
+python scripts/make_maps.py train 00000005 --no-model   # maps/train_00000005.html (EDA map)
+python scripts/plot_trip_static.py train 00000005   # experiments/eda/trip_train_00000005.png
 ```
+
+On Windows, `run_all.bat` runs the first six steps in order.
 
 ## Run the demo (two laptops on the same Wi-Fi / hotspot)
 
 Laptop 1 (API):
-```bash
-# copy the evaluator trip folders into data/raw/eval/ first
-$env:EVAL_DIR="data/raw/eval"        # PowerShell; omit to serve the student-test trips
+```bat
+REM Command Prompt; copy the evaluator trip folders into data\raw\eval\ first
+.venv\Scripts\activate.bat
+set EVAL_DIR=data/raw/eval
 uvicorn api.main:app --host 0.0.0.0 --port 8000
 ```
 
+PowerShell: `$env:EVAL_DIR="data/raw/eval"`. Leave `EVAL_DIR` unset to serve the 10 student-test trips.
+Find Laptop 1's IP with `ipconfig` (Wi-Fi adapter IPv4). If Laptop 2 cannot connect, allow port 8000 in the
+Windows firewall (as Administrator):
+`netsh advfirewall firewall add rule name="PathSnap API 8000" dir=in action=allow protocol=TCP localport=8000`
+
 Laptop 2 (UI):
-```bash
+```bat
+.venv\Scripts\activate.bat
 streamlit run ui/app.py
-# in the sidebar enter http://<Laptop-1-IP>:8000
+REM in the sidebar enter http://<Laptop-1-IP>:8000
 ```
 
 ## Data rules followed
