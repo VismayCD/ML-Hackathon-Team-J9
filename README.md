@@ -81,9 +81,3 @@ streamlit run ui/app.py
 - The 10 student-test trips are used for model comparison.
 - Evaluator trips are used only at demo time; their reference routes are read
   only inside the API's server-side scoring and never sent to the UI or model.
-
-## AI assistance
-
-Starter code was drafted with an AI assistant (Claude) and then run, checked
-and modified by the team. All results in the report come from running these
-scripts on our machines.
