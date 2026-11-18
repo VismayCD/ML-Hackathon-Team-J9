@@ -31,7 +31,11 @@ trip_dir = ROOT / "data/raw" / split / tid
 trip = load_trip(trip_dir)
 lat, lon = trip.track.lat.to_numpy(), trip.track.lon.to_numpy()
 
-fmap = folium.Map(location=[lat.mean(), lon.mean()], zoom_start=15, tiles="OpenStreetMap")
+fmap = folium.Map(location=[lat.mean(), lon.mean()], zoom_start=15, tiles=None, max_zoom=19)
+folium.TileLayer(
+    tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+    attr="Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ", name="Basemap (Esri light grey)", max_native_zoom=16, max_zoom=19,
+).add_to(fmap)   # keyless tiles: OSM/CARTO block pages opened as local files
 
 # road network: only arcs with an end inside the track's bounding box (+ ~300 m margin) to keep the file small
 pad_lat, pad_lon = 0.003, 0.003 / max(np.cos(np.radians(lat.mean())), 0.2)

@@ -46,7 +46,11 @@ if res:
     c[4].metric("Inference time (s)", m.get("inference_seconds"))
 
     gps = res["gps"]
-    fmap = folium.Map(tiles="OpenStreetMap")
+    fmap = folium.Map(tiles=None, max_zoom=19)
+    folium.TileLayer(
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+        attr="Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ", name="Basemap (Esri light grey)", max_native_zoom=16, max_zoom=19,
+    ).add_to(fmap)   # keyless tiles: OSM/CARTO block pages opened as local files
     gps_layer = folium.FeatureGroup(name="GPS observations (blue)")
     for lat, lon in gps[:: max(1, len(gps) // 1500)]:            # thin very long tracks for speed
         folium.CircleMarker([lat, lon], radius=2, color="blue", fill=True).add_to(gps_layer)

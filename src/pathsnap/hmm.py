@@ -28,7 +28,7 @@ import heapq
 
 import numpy as np
 
-BETA = 10.0               # metres; tolerance for driven-vs-GPS distance mismatch (tune it!)
+BETA = 2.0               # metres; tolerance for driven-vs-GPS distance mismatch (tune it!)
 EMISSION_WEIGHT = 1.0     # relative weight of the classifier vs the transition
 SIGMA = 10.0              # metres; GPS noise for the distance-only baseline emission
 UNREACHABLE_LOGP = -50.0  # log-prob for impossible transitions (instead of -inf)
