@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+# feature tables are large and can be rebuilt with scripts/build_features.py
+data/processed/
+# evaluator trips are copied onto Laptop 1 on demo day only
+data/raw/eval/
+# these two models can exceed GitHub's 100 MB file limit; rebuild with scripts/train_models.py
+models/RandomForest.joblib
+models/KNN.joblib

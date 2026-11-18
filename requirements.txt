@@ -1,0 +1,15 @@
+numpy
+pandas
+scipy
+scikit-learn
+optuna
+joblib
+pyarrow
+matplotlib
+folium
+fastapi
+uvicorn[standard]
+pydantic
+requests
+streamlit
+streamlit-folium
