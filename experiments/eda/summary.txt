@@ -1,0 +1,8 @@
+[student_test] trips=10 points=19160 points/trip median=1420 min=262 max=3958
+[train] trips=80 points=208417 points/trip median=1529 min=361 max=19313
+share of 1-second steps: 0.9668
+time gaps > 10 s: 617  largest gap: 153064 s
+missing values: 0  invalid coords: 0  non-increasing timestamps: 0
+speed > 200 km/h (likely GPS jumps): 919 steps
+networks with >1 component: 89  isolated nodes total: 0
+two-way arc share (mean): 0.922
